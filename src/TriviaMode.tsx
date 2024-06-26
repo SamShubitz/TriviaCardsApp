@@ -32,7 +32,7 @@ const TriviaMode = () => {
 
   return (
     <>
-      <FlashCard content={triviaCard} />
+      <FlashCard content={triviaCard} nextQuestion={nextQuestion} />
       <button onClick={handleClick}>Next question</button>
     </>
   );

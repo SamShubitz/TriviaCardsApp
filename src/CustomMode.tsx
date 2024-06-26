@@ -20,9 +20,13 @@ const CustomMode = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setCards([...cards, nextCard]);
+    if (cards[0].front === "") {
+      setCards([nextCard]);
+    } else {
+      setCards([...cards, nextCard]);
+      setDisplayIndex(cards.length);
+    }
     setNextCard({ front: "", back: "" });
-    setDisplayIndex(() => cards.length);
   };
 
   return (
