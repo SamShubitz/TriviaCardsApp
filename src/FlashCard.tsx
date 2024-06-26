@@ -9,12 +9,10 @@ const FlashCard = ({ content }: { content: Card }) => {
   };
 
   return (
-    <div className="FlashCard">
-      <div className="flash-card">
-        <span onClick={handleDisplayChange}>
-          {frontDisplay ? content.front : content.back}
-        </span>
-      </div>
+    <div className="flash-card">
+      <span onClick={handleDisplayChange}>
+        {frontDisplay ? content.front : content.back}
+      </span>
     </div>
   );
 };
