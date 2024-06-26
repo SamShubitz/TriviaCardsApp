@@ -16,6 +16,7 @@ const CustomForm = ({
           id="question-input"
           name="front"
           type="text"
+          placeholder="question"
           value={nextCard.front}
           onChange={handleFormChange}
           required
@@ -24,6 +25,7 @@ const CustomForm = ({
           id="answer-input"
           name="back"
           type="text"
+          placeholder="answer"
           value={nextCard.back}
           onChange={handleFormChange}
           required

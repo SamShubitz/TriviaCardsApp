@@ -6,7 +6,7 @@ const FlashCard = ({
   nextQuestion = false,
 }: {
   content: Card;
-  nextQuestion: boolean;
+  nextQuestion?: boolean;
 }) => {
   const [frontDisplay, setFrontDisplay] = useState(true);
 
