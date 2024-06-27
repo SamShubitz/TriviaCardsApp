@@ -10,6 +10,7 @@ export interface Card {
 
 function App() {
   const [triviaMode, setTriviaMode] = useState(true);
+
   let otherMode = triviaMode ? "flash card mode" : "trivia mode";
 
   const toggleMode = () => {

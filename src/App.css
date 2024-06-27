@@ -7,7 +7,7 @@
 
 .flash-card {
   width: 340px;
-  height: 150px;
+  height: 200px;
   display: grid;
   align-items: center;
   border: solid 1px rgb(149, 149, 151);
