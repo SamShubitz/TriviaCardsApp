@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "./App";
 
-const FlashCard = ({
-  content,
-  nextQuestion = false,
-}: {
-  content: Card;
-  nextQuestion?: boolean;
-}) => {
+const FlashCard = ({ content }: { content: Card }) => {
   const [frontDisplay, setFrontDisplay] = useState(true);
 
   const handleDisplayChange = () => {
@@ -16,7 +10,7 @@ const FlashCard = ({
 
   useEffect(() => {
     setFrontDisplay(true);
-  }, [nextQuestion]);
+  }, [content]);
 
   return (
     <div className="flash-card">

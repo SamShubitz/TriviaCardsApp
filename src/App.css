@@ -7,7 +7,7 @@
 
 .flash-card {
   width: 340px;
-  height: 200px;
+  height: 170px;
   display: grid;
   align-items: center;
   border: solid 1px rgb(149, 149, 151);
@@ -22,5 +22,8 @@
   padding: 20px;
 }
 
+span {
+  font-size: .9rem;
+}
 
 

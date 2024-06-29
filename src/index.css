@@ -28,4 +28,6 @@ button {
 
 input {
   margin-bottom: 2rem;
+  width: 7rem;
+  margin-inline: .5rem;
 }
