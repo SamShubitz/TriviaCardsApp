@@ -6,6 +6,11 @@ const TriviaMode = () => {
   const [triviaMode, setTriviaMode] = useState("Numbers");
   const [nextQuestion, setNextQuestion] = useState(false);
 
+  const currentUrl =
+    triviaMode === "Numbers"
+      ? "http://numbersapi.com/random"
+      : "https://pokeapi.co/api/v2/pokemon-species";
+
   const handleClick = () => {
     setNextQuestion(!nextQuestion);
   };
@@ -16,21 +21,16 @@ const TriviaMode = () => {
     setNextQuestion(!nextQuestion);
   };
 
-  const currentUrl =
-    triviaMode === "Numbers"
-      ? "http://numbersapi.com/random"
-      : "https://pokeapi.co/api/v2/pokemon-species";
-
   const httpGet = async (url: string, type: string) => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`Request failed: ${response.status}`);
+        throw new Error(`${response.status}`);
       }
       const data = type === "text" ? response.text() : response.json();
       return data;
     } catch (error) {
-      console.error("Something went wrong", error);
+      console.error("Something went wrong:", error);
     }
   };
 
