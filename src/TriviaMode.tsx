@@ -21,13 +21,17 @@ const TriviaMode = () => {
     setNextQuestion(!nextQuestion);
   };
 
-  const httpGet = async (url: string, type: string) => {
+  const httpGet = async (url: string) => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`${response.status}`);
       }
-      const data = type === "text" ? response.text() : response.json();
+      const type = response.headers.get("content-type");
+      console.log(type);
+      const data = type?.includes("text/plain")
+        ? response.text()
+        : response.json();
       return data;
     } catch (error) {
       console.error("Something went wrong:", error);
@@ -35,7 +39,7 @@ const TriviaMode = () => {
   };
 
   const fetchNumbersTrivia = async () => {
-    const triviaString = await httpGet(currentUrl, "text");
+    const triviaString = await httpGet(currentUrl);
     const [answer, ...question] = triviaString.split(" ");
     const triviaCard = {
       front: `_____ ${question.join(" ")}`,
@@ -46,7 +50,7 @@ const TriviaMode = () => {
 
   const fetchPokemonTrivia = async () => {
     const pokeID = Math.floor(Math.random() * 151) + 1;
-    const pokeData = await httpGet(`${currentUrl}/${pokeID}`, "json");
+    const pokeData = await httpGet(`${currentUrl}/${pokeID}`);
     const filteredText = pokeData.flavor_text_entries.filter(
       (entry: any) => entry.language.name === "en"
     );
