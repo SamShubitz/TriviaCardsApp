@@ -3,12 +3,12 @@ import FlashCard from "./FlashCard";
 
 const TriviaMode = () => {
   const [triviaCard, setTriviaCard] = useState({ front: "", back: "" });
-  const [triviaMode, setTriviaMode] = useState("Numbers");
+  const [triviaMode, setTriviaMode] = useState("General");
   const [nextQuestion, setNextQuestion] = useState(false);
 
   const currentUrl =
-    triviaMode === "Numbers"
-      ? "http://numbersapi.com/random"
+    triviaMode === "General"
+      ? "https://the-trivia-api.com/v2/questions/"
       : "https://pokeapi.co/api/v2/pokemon-species";
 
   const handleClick = () => {
@@ -27,25 +27,27 @@ const TriviaMode = () => {
       if (!response.ok) {
         throw new Error(`${response.status}`);
       }
-      const type = response.headers.get("content-type");
-      console.log(type);
-      const data = type?.includes("text/plain")
-        ? response.text()
-        : response.json();
+      const data = await response.json();
       return data;
     } catch (error) {
       console.error("Something went wrong:", error);
+      return null;
     }
   };
 
-  const fetchNumbersTrivia = async () => {
+  const fetchGeneralTrivia = async () => {
     const triviaString = await httpGet(currentUrl);
-    const [answer, ...question] = triviaString.split(" ");
-    const triviaCard = {
-      front: `_____ ${question.join(" ")}`,
-      back: answer,
-    };
-    setTriviaCard(triviaCard);
+    if (triviaString) {
+      const question = triviaString[0].question.text;
+      const answer = triviaString[0].correctAnswer;
+      const triviaCard = {
+        front: question,
+        back: answer,
+      };
+      setTriviaCard(triviaCard);
+    } else {
+      console.error("Failed to get trivia");
+    }
   };
 
   const fetchPokemonTrivia = async () => {
@@ -60,7 +62,7 @@ const TriviaMode = () => {
   };
 
   useEffect(() => {
-    triviaMode === "Numbers" ? fetchNumbersTrivia() : fetchPokemonTrivia();
+    triviaMode === "General" ? fetchGeneralTrivia() : fetchPokemonTrivia();
   }, [nextQuestion]);
 
   return (
@@ -68,7 +70,7 @@ const TriviaMode = () => {
       <FlashCard content={triviaCard} />
       <button onClick={handleClick}>Next question</button>
       <select className="mode-select" onChange={handleModeSelect}>
-        <option value="Numbers">Numbers</option>
+        <option value="General">General</option>
         <option value="Pokémon">Pokémon</option>
       </select>
       <h1>{triviaMode}</h1>

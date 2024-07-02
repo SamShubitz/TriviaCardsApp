@@ -40,6 +40,7 @@ const CustomMode = () => {
       <button className="next-button" onClick={handleCardChange}>
         Next question
       </button>
+      <h1>Flashcards</h1>
     </>
   );
 };
